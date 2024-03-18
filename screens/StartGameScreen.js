@@ -1,11 +1,30 @@
-import { TextInput, Button, View, StyleSheet } from "react-native";
+import { TextInput, Button, View, StyleSheet, Alert } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
 
+function StarGameScreen({onPickNumber}) {
+  const [enteredNumber, SetEnteredNumber] = useState("");
 
-function StarGameScreen() {
+  function numberInputHandler(enteredText) {
+    SetEnteredNumber(enteredText);
+    console.log('numberInputHandler :: '+enteredText);
+  }
 
-  const [enteredNumber,SetEnteredNumber] = useState('');
+  function resetHandler() {
+    SetEnteredNumber('');
+  }
+
+  function confirmInputHandler(){
+    const chosenNumber = parseInt(enteredNumber);
+    console.log(chosenNumber);
+    if(isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99){
+      // Show alert ...
+      Alert.alert('Invalid Number','Number has to be a number between 1 to 99',[{text:'Okay',style:'destructive',onPress:resetHandler}]);
+      return;
+    }
+    console.log('Valid Number!');
+    onPickNumber(chosenNumber);
+  }
 
   return (
     <View style={styles.inputContainer}>
@@ -15,13 +34,15 @@ function StarGameScreen() {
         keyboardType="number-pad"
         autoCapitalize="none"
         autoCorrect={false}
+        onChangeText={numberInputHandler}
+        value={enteredNumber}
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
-        <PrimaryButton>Reset</PrimaryButton>
+          <PrimaryButton onPress={resetHandler}>Reset</PrimaryButton>
         </View>
         <View style={styles.buttonContainer}>
-        <PrimaryButton>Confirm</PrimaryButton>
+          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
         </View>
       </View>
     </View>
@@ -57,10 +78,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  buttonsContainer:{
-    flexDirection:'row'
+  buttonsContainer: {
+    flexDirection: "row",
   },
-  buttonContainer:{
-    flex:1
-  }
+  buttonContainer: {
+    flex: 1,
+  },
 });
