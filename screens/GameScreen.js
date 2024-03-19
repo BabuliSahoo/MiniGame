@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from "react-native";
 import Title from "../components/Title";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import Colors from "../constants/colors";
 
 function GameScreen() {
   return (
