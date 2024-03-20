@@ -4,6 +4,8 @@ import { useState } from "react";
 import Colors from "../constants/colors";
 import Title from "../components/ui/Title";
 import InstructionText from "../components/ui/InstructionText";
+import Card from "../components/ui/Card";
+
 
 function StarGameScreen({ onPickNumber }) {
   const [enteredNumber, SetEnteredNumber] = useState("");
@@ -36,7 +38,7 @@ function StarGameScreen({ onPickNumber }) {
   return (
     <View style={styles.rootContainer}>
       <Title>Guess My Number</Title>
-      <View style={styles.inputContainer}>
+      <Card>
         <InstructionText style={styles.InstructionText}>Enter a Number</InstructionText>
         <TextInput
           style={styles.numberInput}
@@ -55,7 +57,7 @@ function StarGameScreen({ onPickNumber }) {
             <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
           </View>
         </View>
-      </View>
+      </Card>
     </View>
   );
 }
